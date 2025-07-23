@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
 
 //zahtevi koji dolaze na /products
@@ -32,6 +40,8 @@ export class ProductsController {
     return this.productsService.getProduct(productId);
   }
 
+  //Patch - parcijalno azuriranje
+  //Put - mora se azurirati ceo objekat!!! salje se ceo
   //azuriranje - kriterijum za identifikaciju u url, a podaci za azuriranje u body
   @Patch(':id')
   updateProduct(
@@ -46,5 +56,10 @@ export class ProductsController {
       prodDesc,
       prodPrice,
     );
+  }
+
+  @Delete(':id')
+  deleteProduct(@Param('id') prodId: string) {
+    return this.productsService.deleteProduct(prodId);
   }
 }
